@@ -1,0 +1,266 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Profile - {{user_profile.user.username}}</title>
+   <!-- <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> -->
+    
+    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+	<!-- header-->
+	<div class="bg-white py-4 shadow dark:bg-gray-800">
+		<div class="max-w-6xl mx-auto">
+
+
+			<div class="flex items-center lg:justify-between justify-around">
+				
+				<a href="/">
+					<image src="/static/images/notepod-icon.png" style="width:69px; height:43px; float:left; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 5px;" alt>
+					<!-- <b><h1 style="color:black; font-family:'Trebuchet MS', sans-serif;justify-content: center; margin-left: 10%; position: absolute; font-size: 1.5rem; align-items: center;">NotePod</h1></b> -->
+				</a>
+				
+			</div>
+
+
+			<!--dropdown doens't display..-->
+			<a href="#">
+				<img src="{{user_profile.profileimg.url}}" class="header-avatar" style="float: right; width: 32px; height: 32px; border-radius: 100%; margin:15px "alt="">
+				<div uk-drop="mode: click; offset:9" class="header_dropdown profile_dropdown border-t" style="left: -178px; top: 21px;">
+					<ul>
+						<!-- <li><a href="/settings"> Account Settings </a> </li> -->
+						<li><a href="logout"> Log Out</a></li>
+					</ul>
+				</div>
+			</a>
+
+		</div>
+	</div>
+	
+	
+
+	<section>
+			<div class="feature-photo">
+				<figure><img src="/static/images/wallpaper.jpg" style="display: block; height: 300px; overflow: hidden; object-fit: cover;" alt=""></figure>
+				<form action="/follow" method="POST">
+					{% csrf_token %}
+					
+				
+
+					<!-- <form class="edit-phto">
+						<i class="fa fa-camera-retro"></i>
+						<label class="fileContainer">
+							Upload Cover Photo
+						<input type="file"/>
+						</label>
+					</form> -->
+					<div class="container-fluid">
+						<div class="row merged">
+							<div class="col-lg-2 col-sm-3" style="align-items:center; vertical-align: middle;">
+								<!-- <div class="user-avatar"> -->
+									<figure>
+										<img src="{{user_profile.profileimg.url}}" style="border:3px; border-color:gray; border-style:solid; border-radius:100%; width:110px; height:110px; margin-top: 15%; margin-left:80%" alt="">
+										<!-- <form class="edit-phto">
+											<i class="fa fa-camera-retro"></i>
+											<label class="fileContainer">
+												<a href="#account-settings">Upload Profile Photo</a>
+											</label>
+										</form> -->
+									</figure>
+								<!-- </div> -->
+							</div>
+							<div class="col-lg-10 col-sm-9">
+								<div class="timeline-info" style="margin-left:10%">
+									<ul>
+										<li class="admin-name" style="float:left; padding-top:3%; padding-bottom: 3%;">
+										<h5 style="color: black; white-space: nowrap; width: 110px; font-size: 27px; font-weight:bold">@{{user_profile.user.username}}</h5>
+										<br>
+										<h5 style="color: black; white-space: nowrap; width: 110px; font-size: 15px;">My Pod: {{user_profile.pod}}</h5>
+										<!--<span>Group Admin</span>-->
+										</li>
+
+										<!-- <span style="color: black; font-size: 27px; margin-right: 350px;"><b><u><a href="/">Home</a></u></b></span> -->
+										
+										<div style="float: right; margin-right:30%; margin-top: 2%;">
+											{% if user_post_length == 0 %}
+											<span style="color: black; font-size: 25px;"><b>0 Posts</b></span>
+											{% elif user_post_length == 1 %}
+											<span style="color: black; font-size: 25px;"><b>{{user_post_length}} Post</b></span>
+											{% else %}
+											<span style="color: black; font-size: 25px;"><b>{{user_post_length}} Posts</b></span>
+											{% endif %}
+										</div>	
+										<!--<li>
+											<a class="" href="javascript:void(0)" title="" data-ripple="">Go live!</a>
+											<a class="" href="javascript:void(0)" title="" data-ripple="">Music</a>
+											<a class="" href="emporium/index-3.html" title="" data-ripple="">Emporium</a>
+											<a class="" href="fitness/index.html" title="" data-ripple="">Health Inspection</a>
+											<a class="" href="settings/account-setting.html" title="" data-ripple="">Settings</a>
+											<a class="" href="javascript:void(0)" title="" data-ripple="">Upload</a>
+											<a class="" href="time-line.html" title="" data-ripple="">time line</a>
+											<a class="" href="timeline-photos.html" title="" data-ripple="">Photos</a>
+											<a class="" href="timeline-videos.html" title="" data-ripple="">Videos</a>
+											<a class="" href="timeline-friends.html" title="" data-ripple="">Friends</a>
+											<a class="" href="timeline-groups.html" title="" data-ripple="">Groups</a>
+											<a class="" href="about.html" title="" data-ripple="">about</a>
+											<a class="" href="#" title="" data-ripple="">more</a>
+
+										</li>-->
+									</ul>
+
+									
+								</div>
+								<div class="add-btn">
+									<!--change the margin to percentage or something else to make it more stable-->
+									
+				
+									<!-- {% if user_followers == 0 or user_followers == 1 %}
+									<span style="color: white; font-size: 27px;"><b>{{user_followers}} follower</b></span>
+									{% else %}
+									<span style="color: white; font-size: 27px;"><b>{{user_followers}} followers</b></span>
+									{% endif %} -->
+				
+				
+									<!-- <span style="color: white; font-size: 27px;"><b>{{user_following}} following</b></span> -->
+				
+									<!-- <input type="hidden" value="{{user.username}}" name="follower" />
+									<input type="hidden" value="{{user_object.username}}" name="user" /> -->
+				
+									
+				
+									<!-- {% if user_object.username == user.username %} -->
+									<!-- <a href="/topic">Add/Change Subjects</a> -->
+									<!-- <a href="/settings" data-ripple="">Account Settings</a> -->
+									<!-- {% else %}
+									<a data-ripple=""><button type="submit" style="background-color: #ffc0cb; border: #ffc0cb;">{{button_text}}</button></a>
+									{% endif %} -->
+									
+				
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+								</aside>
+							</div>
+							<div class="col-lg-6">
+								<div class="central-meta" style="height:auto; min-height:200px">
+									<ul class="photos">
+										{% for post in user_posts reversed %}
+										<li class="search-result-item">
+											<div>
+											{% if post.image %}
+												{% if post.type == "png" %}
+													<div uk-lightbox>
+														<div style="height:300px; width: 200px">
+															<a href="{{ post.image.url }}">  
+																<image class="image" src={{post.image.url}} style="max-height: auto; max-width: 200px;" alt=''/>
+															</a>
+														</div>
+													</div>
+												{% elif post.type == "jpg" %}
+													<div uk-lightbox>
+														<div style="height:300px; width: 200px">
+															<a href="{{ post.image.url }}">  
+																<image class="image" src={{post.image.url}} style="max-height: auto; max-width: 200px;" alt=''/>
+															</a>
+														</div>
+													</div>
+												{% elif post.type == "gif" %}
+													<div uk-lightbox>
+														<div style="height:300px; width: 200px">
+															<a href="{{ post.image.url }}">  
+																<image class="image" src={{post.image.url}} style="max-height: auto; max-width: 200px;" alt=''/>
+															</a>
+														</div>
+													</div>
+												{% else %}
+													<a href="{{ post.image.url }}" style="background-color:#feece9; height: 300px; padding-left: 50px; font-size:20px; font-family: 'Trebuchet MS', sans-serif; text-decoration: underline; font-weight: bold; color:#000000" target="_blank"><br><br><br><br>Link to PDF</a>
+												{% endif %}
+											{% endif %}
+											</div>	
+											
+										</li>
+										{% endfor %}
+									</ul>
+									<!-- <div class="lodmore"><button class="btn-view btn-load-more"></button></div> -->
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	
+	
+	<script data-cfasync="false" src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="{% static 'js/main.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+<!-- 
+	<script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script> -->
+
+
+	<!-- <div uk-lightbox class="uk-lightbox uk-overflow-hidden uk-lightbox-panel uk-open"> 
+		<ul class="uk-lightbox-items">
+			<li class="uk-active uk-transition-active" style="" tabindex="-1">
+				<img width="1024" height="1024" src="/media/post_images/Animated_Sprite_Potion_Image_1_3_iERZNZF_hPMIBaa.gif" alt="">
+			</li>
+		</ul> 
+		<div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque"> 
+			<button class="uk-lightbox-toolbar-icon uk-close-large uk-icon uk-close" type="button" uk-close="">
+				<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close-large">
+					<line fill="none" stroke="#000" stroke-width="1.4" x1="1" y1="1" x2="19" y2="19"></line>
+					<line fill="none" stroke="#000" stroke-width="1.4" x1="19" y1="1" x2="1" y2="19"></line>
+				</svg>
+			</button> 
+		</div> 
+		<a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade uk-icon uk-slidenav-previous uk-slidenav uk-hidden" href="#" uk-slidenav-previous="" uk-lightbox-item="previous">
+			<svg width="14px" height="24px" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" data-svg="slidenav-previous">
+				<polyline fill="none" stroke="#000" stroke-width="1.4" points="12.775,1 1.225,12 12.775,23 "></polyline>
+			</svg>
+		</a> 
+		<a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade uk-icon uk-slidenav-next uk-slidenav uk-hidden" href="#" uk-slidenav-next="" uk-lightbox-item="next">
+			<svg width="14px" height="24px" viewBox="0 0 14 24" xmlns="http://www.w3.org/2000/svg" data-svg="slidenav-next">
+				<polyline fill="none" stroke="#000" stroke-width="1.4" points="1.225,23 12.775,12 1.225,1 "></polyline>
+			</svg>
+		</a> 
+		<div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque" style="display: none;"></div> 
+	</div> -->
+
+
+	
+
+</body>	
+
+
+</html>

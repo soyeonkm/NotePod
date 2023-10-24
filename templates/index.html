@@ -1,0 +1,540 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'favicon.png' %}" rel="icon" type="image/png">
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+            <header>
+                <div class="header_inner">
+                    <form action="/search" method="POST">
+                    {% csrf_token %}
+                    <div class="left-side">
+                        <!-- Logo -->
+                        <a href="/">
+                            <image src="/static/images/notepod-icon.png" style="width:69px; height:43px; float:left; margin-left: 20px; margin-right: 20px; margin-top: 10px; margin-bottom: 5px;" alt>
+                            <!-- <b><h1 style="color:black; font-family:'Trebuchet MS', sans-serif;justify-content: center; margin-left: 10%; position: absolute; font-size: 1.5rem; align-items: center;">NotePod</h1></b> -->
+                        </a>
+                        
+
+                        <!--<div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
+                            <i class="uil-bars"></i>
+                        </div>-->
+
+                        <!-- <div class="header_search"> -->
+                            <!-- <input type="text" style="width: 500px" name="username" placeholder="Search for username...">&nbsp; &nbsp; -->
+                            <select id="Subject" name="Subject" class="space">
+                                <option value="">Choose a Subject</option>
+                                <option value="English">English</option>
+                                <option value="Math">Math</option>
+                                <option value="Science">Science</option>
+                                <option value="History">History</option>
+                                <option value="Languages other than English">Languages other than English</option>
+                                <option value="Art">Art</option>
+                            </select>
+                            <br>
+                            <!-- <label for="Sub_Subject">Choose a Sub-Subject</label> -->
+                            <select id="Sub_Subject" name="Sub_Subject" class="space">
+                            </select>                   
+                                <br>                    
+                                <!-- <button type="submit" name="continue" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">CONTINUE</button> -->
+                    <!-- </form>                -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                jQuery(document).ready(function() {
+                                    function findTopics() {
+                                        var subject = jQuery('#Subject').val();
+                                        var sub_subjects = [];
+                                        if(subject==''){
+                                            sub_subjects = ['First Choose a Subject'];
+                                        } else if (subject === 'English') {
+                                            sub_subjects = ['', 'English 9', 'English 10', 'English 11', 'English 12', 'Language and Composition', 'Literature and Composition', 'Seminar', 'Research', 'Other'];
+                                        } else if (subject === 'Math') {
+                                            sub_subjects = ['', 'Algebra 1', 'Geometry', 'Algebra 2', 'PreCalculus', 'Statistics', 'Calculus', 'Statistics', 'Other'];
+                                        } else if (subject === 'Science') {
+                                            sub_subjects = ['', 'Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Computer Science', 'Engineering', 'Other'];
+                                        } else if (subject === 'History') {
+                                            sub_subjects = ['', 'US History', 'World History', 'European History', 'Human Geography', 'Government', 'Psychology', 'Economics', 'Other'];
+                                        } else if (subject === 'Languages other than English') {
+                                            sub_subjects = ['', 'Spanish', 'French', 'Korean', 'German', 'ASL', 'Other'];
+                                        } else if (subject === 'Art') {
+                                            sub_subjects = ['', 'Drawing', 'Graphic Design', 'Sculpture', 'Art History', 'Choir', 'Music Theory', 'Instruments', 'Other'];
+                                        }
+                                        var Sub_Subject = jQuery('#Sub_Subject');
+                                        Sub_Subject.empty();
+                            
+                                        jQuery.each(sub_subjects, function(index, option) {
+                                            Sub_Subject.append('<option value="' + option + '">' + option + '</option>');
+                                        });
+                                    }
+                            
+                                    jQuery('#Subject').on('change', function() {
+                                        findTopics();
+                                    });
+                                });
+                            </script>
+                            
+                            <!-- <style>
+                                input[type=checkbox]
+                                {
+                                
+                                }
+                            </style> -->
+                            <style>
+                                #PodOnly{
+                                    margin: 0;
+                                    padding: 10;
+                                    width: auto;
+                                    height: auto;
+                                    align-items: center;
+                                    float: left;
+
+                                }
+                                .space{
+                                    margin-right:10px;
+                                }
+                                #Subject{
+                                    width:200px;
+                                }
+                                #Sub_Subject{
+                                    width:200px;
+                                }
+                                /* #pod_text{
+                                    margin: 0;
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    -ms-transform: translate(-50%, -50%);
+                                    transform: translate(-50%, -50%);
+                                } */
+
+                            </style>
+                            
+                            <input type="text" style="width: 200px" id="notes2" name="notes2" class="space" placeholder="Search for notes...">&nbsp;
+                            <input type="checkbox" name="PodOnly" id="PodOnly" class="space" value="PodOnly" onclick="return ValidateSelection();">
+                            <label for="PodOnly" class="pod_text">Pod-Only</label>
+                            <button type="submit"><i class="fa fa-search fa-1x"></i></button>
+
+
+
+                            
+                            
+                        <!-- </div> -->
+
+                    </div>
+                    </form>
+                    <div class="right-side lg:pr-4">
+                        <!-- <a href="/profile/{{user.username}}"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-2 px-2 py-1 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Your Profile
+                        </a> -->
+
+                        
+
+                        <a href="/create-pod"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-2 px-2 py-1 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Create a Pod!
+                        </a>
+
+                        <a href="/join-pod"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-2 px-2 py-1 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Join a Pod!
+                        </a>
+
+                        
+
+
+                        <a href="#">
+                            <img src="{{user_profile.profileimg.url}}" class="header-avatar" style="float: right; width: 32px; height: 32px; border-radius: 100%; margin:15px "alt="">
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <!-- <li><a href="/settings"> Account Settings </a> </li> -->
+                                <li><a href="logout"> Log Out</a></li>
+                                <li><a href="/profile/{{user.username}}"> Your Profile </a></li>
+                            </ul>
+                        </div>
+                        </a>
+
+                        <!-- upload -->
+                        <!-- <a href="#"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-2 px-2 py-1 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Upload Notes
+                        </a> -->
+                         <!-- upload dropdown box -->
+                        <!-- <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small" class="header_dropdown"> -->
+    
+                            <!-- notivication header -->
+                            <!-- <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
+                                <h4>Upload Pics</h4>
+                            </div> -->
+    
+                            <!-- notification contents -->
+                            
+                        
+                         <!-- Notification -->
+
+                        <!-- <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M12 22a2.02 2.02 0 0 1-2.01-2h4a2.02 2.02 0 0 1-.15.78a2.042 2.042 0 0 1-1.44 1.18h-.047A1.922 1.922 0 0 1 12 22zm8-3H4v-2l2-1v-5.5a8.065 8.065 0 0 1 .924-4.06A4.654 4.654 0 0 1 10 4.18V2h4v2.18c2.579.614 4 2.858 4 6.32V16l2 1v2z" fill="currentColor"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Notification </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong class="text-link" >Taiye</strong>  
+                                                <span class="text-link"> is following you  </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div> -->
+
+                        <!-- Messages -->
+
+                        <!-- <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="0.5em" height="0.5em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Messages </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Taiye </strong> <time> 6:43 PM</time>
+                                            <p> hi tomi </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div> -->
+
+                        <!-- profile -->
+
+                        
+
+                    </div>
+                </div>
+            </header>
+
+            <br>
+
+            <!-- <div class="container"> -->
+            <style>
+                
+                .container{
+                    content: "";
+                    justify-content: center;
+                    margin: auto;
+                    align-items: center;
+                    /* margin-left:0px;
+                    margin-right:0px;
+                    padding-left:0px;
+                    padding-right:0px; */
+
+                    display: table;
+                    clear: both;
+                }
+
+            </style>
+
+            <!-- <div class="container" style="justify-content:center;"> -->
+
+                <!--<h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>--->
+
+                <div class="lg:flex lg:space-x-0 lg:space-y-0 space-y-5" style="float:left; width: 65%; padding-left: 15%; padding-top: 3%; margin-right: 0%; padding-right:0px;; padding-bottom: 3%">
+
+                    <!-- left sidebar-->
+                    <div class="space-y-5 flex-shrink-0">
+
+                        <!-- post 1-->
+
+                        {% for post in posts reversed %}
+                        <div class="bg-white shadow rounded-md -mx-2 lg:mx-0">
+    
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4" style="margin-left:7px">
+                                    <!-- <a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">  
+                                            <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a> -->
+                                    <!-- <span class="block font-semibold "><a href="/profile/{{post.user}}">@{{post.user}}</a></span> -->
+                                    <!-- {% if post.sub != False %}  {% if post.sub != "" %}
+                                        {% if post.sub_sub != False %}  {% if post.sub_sub != "" %}
+                                            <strong style="color: black">{{post.sub}}, {{post.sub_sub}}</strong>
+                                        {% else %}
+                                            <strong style="color:black">{{post.sub}}</strong>
+                                                
+                                    {% endif %}  {% endif %}  {% endif %}  {% endif %} -->
+                                    {% if post.caption != False %}  {% if post.caption != "" %}
+                                    <strong style="color: black; margin-left:7px">
+                                        {{post.caption}}
+                                    </strong>
+                                    {% endif %}  {% endif %}
+                                </div>
+                            <!-- <div>
+                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right">
+                            
+                                    <ul class="space-y-1">
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                        <i class="uil-trash-alt mr-1"></i>  Delete Post
+                                        </a> 
+                                    </li>
+                                    </ul>
+                                
+                                </div>
+                            </div> -->
+                            </div>
+    
+                            <div>
+                                {% if post.image %}
+                                    {% if post.type == "png" %}
+                                    <div uk-lightbox style="margin:2%;">
+                                        <a href="{{post.image.url}}">  
+                                            <image class="image" src={{post.image.url}} alt=''/>
+                                        </a>
+                                    </div>
+                                    {% elif post.type == "jpg" %}
+                                    <div uk-lightbox style="margin:2%;">
+                                        <a href="{{post.image.url}}">  
+                                            <image class="image" src={{post.image.url}} alt=''/>
+                                        </a>
+                                    </div>
+                                    {% elif post.type == "gif" %}
+                                    <div uk-lightbox style="margin:2%;">
+                                        <a href="{{post.image.url}}">  
+                                            <image class="image" src={{post.image.url}} alt=''/>
+                                        </a>
+                                    </div>
+                                    {% else %}
+                                    <a href="{{ post.image.url }}" style="padding-left: 20px; font-size:20px; font-family: 'Trebuchet MS', sans-serif; text-decoration: underline; font-weight: bold; color:#304e25" target="_blank">Link to Note</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            
+    
+                            <div class="py-3 px-4 space-y-3"> 
+                            
+                                <div class="flex space-x-4 lg:font-bold">
+                                    <a href="/like-post?post_id={{post.id}}" style="margin-bottom: -15px" class="flex items-center space-x-2">
+                                        <div class="p-2 rounded-full text-black">
+                                        <svg 
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            width="30px" height="30px">
+                                            <image  x="0px" y="0px" width="30px" height="30px" style="margin-left:0px; margin-bottom:0px" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABTVBMVEX/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv/oZv///8sSu9wAAAAbXRSTlMAM5meR6W6D6DaAyFPd53Oq9Ks0cpikXg4irAscnMY4YceSAv6P8QC3fJY7uTB7P5EcFf9PNl8HZ/zsXkvDFDQ5zkpy5ZbHD7f8F5ZdVyLNd5fBHYghBu+DvnFmipMIwd0bY1Dm265jGvXCjuBIYN2RQAAAAFiS0dEbiIPURcAAAAHdElNRQfnBgELIjR6Ok4rAAABNUlEQVQoz32Q11rCQBCFR2NDjQ1dDaARVEQp9oIdsWFXVCwo2Ou+/63ZbI1+m3OTOefP7s4MgKqaWqMO9KrHuKFRS5uwo0CzhrZgV60abFLc5nc3xu0a3EFxpwZ3URz0v7zbm/Yg1NtHCoviEKnDEYT6B5xpbDezB6MQozgCQ2bQrYZHII65zNEE+YxFx5M8SgKWiru/ptJKBBnsowmY9MNTANMz0mZmw3MKnSczLCxmuV8CWBYwtMImX12z0on1DafT3KbTfTZv57e2d7zb2d3jxwr7/zd6oLZ0+JceeVs+9tITFqdOWXGm0vMCS4sxfv5CwZc8vBJLLkl6fcOyW4A7zssC3/PoAaDC36kK/KjOk2PmSeBnGrxQV6XuVT7+Rvw7dx/EfX4prRcN9C1d2TJ+Km71C0coswssU80HAAAAAElFTkSuQmCC" />
+                                            </svg>
+                                            
+                                            
+                                            {% if post.no_of_likes == 0 %}
+                                            <p>No Likes</p>
+                                            {% elif post.no_of_likes == 1 %}
+                                            <p>{{post.no_of_likes}} Like</p>
+                                            {% else %}
+                                            <p>{{post.no_of_likes}} Likes</p>
+                                            {% endif %}
+                                        </div>
+                                        
+                                    </a>
+                                    {% if post.image %}
+                                    <a style="float: right; margin: auto; margin-right: 0" href="{{post.image.url}}"  download>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/></g></svg>
+                                        
+                                    </a>
+                                    {% endif %}
+                                </div>
+
+                                <!--Displays Subject, sub subject, and caption note. Checks if the note has all those values-->
+                                
+                                    
+                                    <!-- <br> -->
+                                    
+                                    <!--Subject/sub-subject display for each post-->
+                                    {% if post.sub != False %}  {% if post.sub != "" %}
+                                        {% if post.sub_sub != False %}  {% if post.sub_sub != "" %}
+                                            <p>{{post.sub}}, {{post.sub_sub}}</p>
+                                        {% else %}
+                                            <p>{{post.sub}}</p>
+                                                
+                                    {% endif %}  {% endif %}  {% endif %}  {% endif %}
+
+                                    <!--Keyword display for each post-->
+                                    {% if post.key1 != False %} {% if post.key1 != "" %} 
+                                    {% if post.key2 != False %} {% if post.key2 != "" %}
+                                    {% if post.key3 != False %} {% if post.key3 != "" %}
+                                        <p>#{{post.key1}} #{{post.key2}} #{{post.key3}}</p>
+                                    {% endif %}  {% endif %} 
+                                    {% endif %}  {% endif %} 
+                                    {% endif %}  {% endif %} 
+                            </div>
+    
+                        </div>
+                        {% endfor %}
+    
+                    </div>
+
+                    
+                </div> 
+                
+                <div class="flex flex-center text-center" style="float:right; width:35%; padding-left:1%; padding-right: 15%; padding-top: 3%; display: flex; flex-direction: column; /* position: fixed; top: 5%; left: 65% */; position: relative">
+
+                    <div class="bg-white shadow rounded-md">
+                        <div class="flex flex-col choose-upload text-center">
+                            <br>
+                            <b><h1 style="font-size: 1.5rem;">Upload Notes</b>
+                            <form action="upload" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <!-- <p class="my-3 leading-6"> Upload pics</p> -->
+                                <div style="margin:10%; font-size:1rem;">
+
+                                    <input type="file" name="image_upload" id="image_upload">
+                                    
+                                    <br>
+                                    <!--Choose subject/sub-subject-->
+                                    <!-- <label for="Subject">Choose a Subject</label> -->
+                                    <select id="u_Subject" name="u_Subject">
+                                        <option value="">Choose a Subject</option>
+                                        <option value="English">English</option>
+                                        <option value="Math">Math</option>
+                                        <option value="Science">Science</option>
+\                                        <option value="History">History</option>
+                                        <option value="Languages other than English">Languages other than English</option>
+                                        <option value="Art">Art</option>
+                                    </select>
+                                    <br>
+                                    <!-- <label for="Sub_Subject">Choose a Sub-Subject</label> -->
+                                    <select id="u_Sub_Subject" name="u_Sub_Subject"></select>                   
+                                    <br> 
+                                                    
+                                        
+                                    <!-- <button type="submit" name="continue" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">CONTINUE</button> -->
+                                    <!-- <p>Provide a Description for Your Notes</p> -->
+                                    <textarea class="button soft-warning small" name="caption" placeholder="Description of Your Notes..." ></textarea>
+                    
+                                    <!-- <p>Type 3 Keywords that Describe your Note</p> -->
+                                    <label for="k1"></label><input name="k1" type="text" size="5" height="2", placeholder="Keyword 1...">
+                                    <label for="k2"></label><input name="k2" type="text" size="5" height="2", placeholder="Keyword 2...">
+                                    <label for="k3"></label><input name="k3" type="text" size="5" height="2", placeholder="Keyword 3...">                                       
+                                    
+                                    <p class="px-4 py-3 -mx-5 -mb-4 mt-5 border-t text-sm">Image size must be less than 999MB</p>
+                                    <p class="px-4 py-3 -mx-5 -mb-4 mt-5 text-sm"> </p>
+                                    <div>
+                                        <style>
+
+                                            h5{
+                                                color: red;
+                                            }
+                                        </style>
+                                        {% for message in messages %}
+                                        <h5><em>{{message}}</em></h5>
+                                        {% endfor %}
+                                    </div>
+                                    <p class="px-4 py-3 -mx-5 -mb-4 mt-1 text-sm"> </p>
+                                    <button class="button bg-pink-500" type="submit">UPLOAD</button>
+                                    <br>
+                                </div>
+                            </form>  
+                                            
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                                jQuery(document).ready(function() {
+                                    function findTopics() {
+                                        var u_subject = jQuery('#u_Subject').val();
+                                        var u_sub_subjects = [];
+                                        if(u_subject==''){
+                                            u_sub_subjects = ['First Choose a Subject'];
+                                        } else if (u_subject === 'English') {
+                                            u_sub_subjects = ['', 'English 9', 'English 10', 'English 11', 'English 12', 'Language and Composition', 'Literature and Composition', 'Seminar', 'Research', 'Other'];
+                                        } else if (u_subject === 'Math') {
+                                            u_sub_subjects = ['', 'Algebra 1', 'Geometry', 'Algebra 2', 'Pre-Calculus', 'Statistics', 'Calculus', 'Statistics', 'Other'];
+                                        } else if (u_subject === 'Science') {
+                                            u_sub_subjects = ['', 'Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Computer Science', 'Engineering', 'Other'];
+                                        } else if (u_subject === 'History') {
+                                            u_sub_subjects = ['', 'US History', 'World History', 'European History', 'Human Geography', 'Government', 'Psychology', 'Economics', 'Other'];
+                                        } else if (u_subject === 'Languages other than English') {
+                                            u_sub_subjects = ['', 'Spanish', 'French', 'Korean', 'German', 'ASL', 'Other'];
+                                        } else if (u_subject === 'Art') {
+                                            u_sub_subjects = ['', 'Drawing', 'Graphic Design', 'Sculpture', 'Art History', 'Choir', 'Music Theory', 'Instruments', 'Other'];
+                                        }
+                                        var u_Sub_Subject = jQuery('#u_Sub_Subject');
+                                        u_Sub_Subject.empty();
+                            
+                                        jQuery.each(u_sub_subjects, function(index, option) {
+                                            u_Sub_Subject.append('<option value="' + option + '">' + option + '</option>');
+                                        });
+                                    }
+                            
+                                    jQuery('#u_Subject').on('change', function() {
+                                        findTopics();
+                                    });
+                                });
+                            </script>
+                            
+                            
+                        </div>
+        
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- </div> -->
+
+            
+
+
+
+
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+</body>
+
+
+</html>

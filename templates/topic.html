@@ -1,0 +1,145 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'assets/images/favicon.png' %}" rel="icon" type="image/png">
+    <title>Topic Selection</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+
+</head>
+
+<body class="bg-gray-100">
+
+
+    <div id="wrapper" class="flex flex-col justify-between h-screen">
+
+        <!-- header-->
+        <div class="bg-white py-4 shadow dark:bg-gray-800">
+            <div class="max-w-6xl mx-auto">
+
+
+                <div class="flex items-center lg:justify-between justify-around">
+
+                    <a href="/">
+                       <b><h1 style="font-size: 1.5rem;">NotePod</h1></b>
+                    </a>
+
+                    <!-- <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+                        
+                        <a href="/signup" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Content-->
+        <div>
+            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> Topic Selection</h1>
+
+
+                <div>
+                    <style>
+                        h5{
+                            color: red;
+                        }
+                    </style>
+                    {% for message in messages %}
+                    <h5>{{message}}</h5>
+                    {% endfor %}
+                  </div>
+
+    <!-- code to create dynamic dropdowns -->
+                <form action="{% url 'topic' %}" method="POST">
+                    {% csrf_token %}
+
+                    <label for="Subject">Choose a Subject</label>
+                    <select id="Subject" name="Subject">
+                        <option value="Subject"></option>
+                        <option value="English">English</option>
+                        <option value="Math">Math</option>
+                        <option value="Science">Science</option>
+                        <option value="History">History</option>
+                        <option value="Foreign">Languages other than English</option>
+                        <option value="Art">Art</option>
+                    </select>
+                    <br>
+                    <label for="Sub_Subject">Choose a Sub-Subject</label>
+                    <select id="Sub_Subject" name="Sub_Subject">
+                    </select>                   
+                    <br>
+                    <br>
+                    <!-- <style>
+                        button.bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full{
+                            padding-bottom: 50%;
+                        }
+                    </style> -->
+                    
+                    <button type="submit" name="continue" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">CONTINUE</button>
+                </form>               
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    jQuery(document).ready(function() {
+                        function findTopics() {
+                            var subject = jQuery('#Subject').val();
+                            var sub_subjects = [];
+                            if(subject==""){
+                                sub_subjects=[''];
+                            } else if (subject === 'English') {
+                                sub_subjects = ['English 9', 'English 10', 'Language and Composition', 'Literature and Composition'];
+                            } else if (subject === 'Math') {
+                                sub_subjects = ['Algebra 1', 'Geometry', 'Algebra 2', 'PreCalculus', 'Trigonometry', 'Calculus', 'Statistics'];
+                            } else if (subject === 'Science') {
+                                sub_subjects = ['Biology', 'Chemistry', 'Physics 1', 'Physics C', 'Environmental Science'];
+                            } else if (subject === 'History') {
+                                sub_subjects = ['US History', 'World History', 'European History', 'Human Geography', 'Government'];
+                            } else if (subject === 'Foreign') {
+                                sub_subjects = ['Spanish', 'French', 'Korean', 'ASL', 'German'];
+                            } else if (subject === 'Art') {
+                                sub_subjects = ['Drawing', 'Graphic Design', 'Sculpture', 'Art History', 'Choir', 'Music Theory', 'Instruments'];
+                            }
+                            var Sub_Subject = jQuery('#Sub_Subject');
+                            Sub_Subject.empty();
+                
+                            jQuery.each(sub_subjects, function(index, option) {
+                                Sub_Subject.append('<option value="' + option + '">' + option + '</option>');
+                            });
+                        }
+                
+                        jQuery('#Subject').on('change', function() {
+                            findTopics();
+                        });
+                    });
+                </script>
+          <!-- end of code to create dynamic dropdowns -->
+                
+           
+                                    
+
+                                    
+
+    <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+</body>
+
+
+</html>

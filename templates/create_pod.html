@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'assets/images/favicon.png' %}" rel="icon" type="image/png">
+    <title>Choose a Subject</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+
+</head>
+
+<body class="bg-gray-100">
+
+
+    <div id="wrapper" class="flex flex-col justify-between h-screen">
+
+        <!-- header-->
+        <div class="bg-white py-4 shadow dark:bg-gray-800">
+            <div class="max-w-6xl mx-auto">
+
+
+
+                <div class="flex items-center lg:justify-between justify-around">
+
+                    <a href="/">
+                        <image src="/static/images/notepod-icon.png" style="width:100px; height:63px; float:left;" alt></image>
+                        <!-- <b><h1 style="font-size: 1.5rem;">NotePod</h1></b> -->
+                    </a>
+
+                    <!-- <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+                        
+                        <a href="/signin" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Login</a>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Content-->
+        <style>
+            .ce{
+                padding:10%;
+            }
+        </style>
+
+        <div class="ce">
+            <div class="lg:p-12 max-w-md max-w-xl lg:my-auto my-12 mx-auto p-6 space-y-">
+                <h1 class="lg:text-3xl text-xl font-semibold mb-6"> Create a Pod </h1>
+                <!-- <h3 class="lg:text-sm text-sm mb-6">It may take a few days to verify and create the requested pod.</h3> -->
+                <!--<p class="mb-2 text-black text-lg"> Register to manage your account </p>-->
+                
+
+                <!-- <div>
+                    <style>
+                        h5{
+                            color: red;
+                        }
+                    </style>
+                    {% for message in messages %}
+                    <h5>{{message}}</h5>
+                    {% endfor %}
+                </div> -->
+                
+                
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <style>
+                        input{
+                            margin-bottom: 1%
+                        }
+                    </style>
+                     <!-- <p>Type 3 Keywords that Describe your Note</p> -->
+                    <label for="name"></label><input name="name" type="text" size="5" height="2", placeholder="Name of School...">
+                    <label for="district"></label><input name="district" type="text" size="5" height="2", placeholder="School District...">
+                
+                    <br>
+                    
+                    <style>
+                        button{
+                            margin-bottom: 1%
+                        }
+                    </style>
+                    <a href="/join-pod"><button type="submit" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Create Pod</button></a>
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+</body>
+ 
+
+</html>  
+
+
+
+
+
+
+
+
+
