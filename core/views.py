@@ -12,11 +12,50 @@ from itertools import chain
 
 # Create your views here.
 
+import socket
+# one or both the following will work depending on your scenario
+# socket.gethostbyname(socket.getfqdn())
+
+
+from ipware import get_client_ip
+
+# import requests
+
+
+# def get_client_ip(request):
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ip = x_forwarded_for.split(',')[0]
+#     else:
+#         ip = request.META.get('REMOTE_ADDR')
+#     return ip
+
+
+# server_ip = requests.get("https://httpbin.org/ip").json()['origin']
+
+
+
 @login_required(login_url='signin')
 def index(request):
     # return HttpResponse('<h1>Welcome to NotePod!</h1>')
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
+    # print("ip address", socket.gethostbyname(socket.gethostname()))
+
+    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    # if x_forwarded_for:
+    #     ip = x_forwarded_for.split(',')[0]
+    # else:
+    #     ip = request.META.get('REMOTE_ADDR')
+    
+    # print("IP: ", ip)
+
+
+
+    # host_addr =  request._current_scheme_host
+    # print(host_addr)
+
+
 
     # user_following_list = []
     feed = []
@@ -41,6 +80,7 @@ def index(request):
     # all_users = User.objects.all()
     # user_following_all = []
     
+
     
 
     # for user in user_following:
@@ -63,6 +103,9 @@ def index(request):
     #     username_profile_list.append(profile_lists)
 
     # suggestions_username_profile_list = list(chain(*username_profile_list))
+
+    
+    
 
 
     
@@ -658,3 +701,5 @@ def like_post2(request):
 
     
     return render(request, 'search.html', {'notes': keeping, 'user_profile': user_profile})
+
+    
