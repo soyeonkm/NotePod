@@ -1,1 +1,1 @@
-
+NotePod is a social academic platform where students can connect through shared classes and schools to exchange notes, study resources, and collaborate. Inspired by the structure of social media, it helps make learning more interactive, organized, and community-driven.
